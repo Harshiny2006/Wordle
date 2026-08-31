@@ -1,0 +1,52 @@
+/* Centers the whole game on the page */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  margin-top: 50px;
+}
+
+/* Stacks the 6 rows vertically with a small gap */
+.wordle-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; 
+}
+
+/* Places the 5 cells horizontally next to each other */
+.wordle-row {
+  display: flex;
+  gap: 5px;
+}
+
+/* Defines the actual square boxes */
+.wordle-cell {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #d3d6da; /* The classic gray Wordle border */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Wordle Colors */
+.wordle-cell.correct {
+  background-color: #538d4e;
+  color: white;
+  border-color: #538d4e;
+}
+
+.wordle-cell.present {
+  background-color: #b59f3b;
+  color: white;
+  border-color: #b59f3b;
+}
+
+.wordle-cell.absent {
+  background-color: #3a3a3c;
+  color: white;
+  border-color: #3a3a3c;
+}
