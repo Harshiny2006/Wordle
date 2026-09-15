@@ -17,7 +17,7 @@ A polished, responsive, full-stack Wordle web application built with React, Node
 ## Tech Stack
 
 - **Frontend:** React (Vite), CSS3 (Flexbox, Keyframes, Clamp), JavaScript (ES6+)
-- **Backend:** Node.js, Express.js, CORS
+- **Backend:** Rest APIs, Node.js, Express.js, CORS
 - **Version Control:** Git, GitHub
 
 ---
