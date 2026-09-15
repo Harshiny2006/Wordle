@@ -1,52 +1,187 @@
-/* Centers the whole game on the page */
+/* client/src/App.css (Upgraded Version with Animations) */
+/* Centers the entire game and prevents scrolling */
 .app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: Arial, sans-serif;
-  margin-top: 50px;
+  justify-content: space-between; /* Spreads title, grid, and keyboard evenly */
+  height: 100vh; /* Locks app to exactly 100% of the screen height */
+  padding: 20px 0; /* Adds breathing room at top and bottom */
+  box-sizing: border-box;
+  background-color: #121213;
+  color: white;
 }
 
-/* Stacks the 6 rows vertically with a small gap */
+h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vh, 2.5rem); /* Scales title slightly on small screens */
+}
+
+/* Allows the grid to take up the middle space and stay centered */
 .wordle-grid {
   display: flex;
   flex-direction: column;
   gap: 5px; 
+  flex-grow: 1;
+  justify-content: center; 
 }
 
-/* Places the 5 cells horizontally next to each other */
 .wordle-row {
   display: flex;
   gap: 5px;
 }
 
-/* Defines the actual square boxes */
+/* Responsive grid boxes using clamp() and vh */
 .wordle-cell {
-  width: 60px;
-  height: 60px;
-  border: 2px solid #d3d6da; /* The classic gray Wordle border */
+  width: clamp(40px, 7vh, 60px);
+  height: clamp(40px, 7vh, 60px);
+  border: 2px solid #3a3a3c;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vh, 2rem);
   font-weight: bold;
+  text-transform: uppercase;
+  transition: border-color 0.15s ease-out;
 }
 
-/* Wordle Colors */
-.wordle-cell.correct {
-  background-color: #538d4e;
+.wordle-cell:not(:empty) {
+    border-color: #565758;
+}
+
+/* --- ON-SCREEN KEYBOARD (Responsive) --- */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 6px;
+}
+
+.key {
+  background-color: #818384;
   color: white;
+  border: none;
+  border-radius: 4px;
+  /* Scales keys down dynamically so they don't force a scroll bar */
+  height: clamp(45px, 7vh, 58px);
+  min-width: clamp(30px, 8vw, 43px);
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.1s;
+}
+
+.key:hover {
+  background-color: #939598;
+}
+
+.key:active {
+  transform: scale(0.95);
+}
+
+.large-key {
+  min-width: clamp(50px, 12vw, 65px);
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+}
+/* --- THE ENHANCEMENT: 3D FLIP ANIMATION --- */
+
+/* Defines the animation keyframes */
+/* It rotates the card 90 degrees flat, changes the color, and turns back */
+@keyframes flip {
+  0% {
+    transform: rotateX(0);
+    background-color: transparent; /* Blank initial state */
+  }
+  45% {
+    transform: rotateX(90deg); /* Midway: card is flat */
+    background-color: transparent; /* Still blank */
+  }
+  55% {
+    transform: rotateX(90deg); /* Midway: card is flat */
+    /* FINAL BACKGROUND COLORS (correct/present/absent) apply here */
+  }
+  100% {
+    transform: rotateX(0deg); /* Fully turned around */
+    /* Colors apply automatically from the classes below */
+  }
+}
+
+/* Apply the animation when these classes are attached by React */
+.wordle-cell.correct,
+.wordle-cell.present,
+.wordle-cell.absent {
+  /* This triggers the keyframes above when the class is added */
+  animation: flip 0.6s ease-in forwards;
+  color: white; /* All status text turns white */
+}
+
+/* Hold these final background and border colors once the animation (100%) completes */
+.wordle-cell.correct {
   border-color: #538d4e;
+  background-color: #538d4e; /* Final Green */
 }
 
 .wordle-cell.present {
-  background-color: #b59f3b;
-  color: white;
   border-color: #b59f3b;
+  background-color: #b59f3b; /* Final Yellow */
 }
 
 .wordle-cell.absent {
-  background-color: #3a3a3c;
-  color: white;
   border-color: #3a3a3c;
+  background-color: #3a3a3c; /* Final Gray */
+}
+
+/* --- ON-SCREEN KEYBOARD --- */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 6px;
+}
+
+.key {
+  background-color: #818384;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  height: 58px;
+  min-width: 43px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.1s;
+}
+
+.key:hover {
+  background-color: #939598;
+}
+
+.key:active {
+  transform: scale(0.95);
+}
+
+.large-key {
+  min-width: 65px;
+  font-size: 1rem;
 }
